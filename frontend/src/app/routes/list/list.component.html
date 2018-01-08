@@ -1,0 +1,37 @@
+<mat-table #table [dataSource]="dataSource" class="example-table">
+
+  <!--- Note that these columns can be defined in any order.
+The actual rendered columns are set as a property on the row definition" -->
+
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.id }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="location">
+    <mat-header-cell *matHeaderCellDef>Location</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.location }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="level">
+    <mat-header-cell *matHeaderCellDef>level</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.level }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="description">
+    <mat-header-cell *matHeaderCellDef>description</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.description }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="created">
+    <mat-header-cell *matHeaderCellDef>Created</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.created | date }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="updated">
+    <mat-header-cell *matHeaderCellDef>Updated</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.updated | date }}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
