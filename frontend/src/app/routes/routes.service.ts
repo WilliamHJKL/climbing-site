@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { RouteListItem } from './route-list-item';
 import { Observable } from 'rxjs/Observable';
+import { RouteLevel } from './route-level';
 
 @Injectable()
 export class RoutesService {
@@ -13,7 +14,7 @@ export class RoutesService {
       updated: 2,
       description: 'super voie',
       id: 1,
-      level: '6b',
+      level: RouteLevel._6B,
       location: '34',
       name: 'Tout en camon'
     }]);

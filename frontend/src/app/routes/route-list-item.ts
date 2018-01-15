@@ -1,3 +1,4 @@
+import { RouteLevel } from './route-level';
 export class RouteListItem {
   id: number;
   location: string;
@@ -5,5 +6,5 @@ export class RouteListItem {
   created: number;
   name: string;
   description: string;
-  level: string;
+  level: RouteLevel;
 }
