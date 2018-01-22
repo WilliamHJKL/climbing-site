@@ -1,0 +1,8 @@
+<div *ngIf="editing; else initial">
+  <mat-form-field>
+    <textarea matInput [(ngModel)]="value"></textarea>
+  </mat-form-field>
+</div>
+<ng-template #initial>
+  <div>{{ value }}</div>
+</ng-template>

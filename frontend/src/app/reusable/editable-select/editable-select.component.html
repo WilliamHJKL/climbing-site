@@ -1,0 +1,10 @@
+<div *ngIf="editing; else initial">
+  <mat-select [value]="value" (selectionChange)="valueChange.emit($event)">
+    <mat-option *ngFor="let item of items" [value]="item">
+      {{ item }}
+    </mat-option>
+  </mat-select>
+</div>
+<ng-template #initial>
+  <div>{{ value }}</div>
+</ng-template>

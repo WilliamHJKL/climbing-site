@@ -14,7 +14,7 @@ export class RoutesService {
       updated: 2,
       description: 'super voie',
       id: 1,
-      level: RouteLevel._6B,
+      level: '6B',
       location: '34',
       name: 'Tout en camon'
     }]);

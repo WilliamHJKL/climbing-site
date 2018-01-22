@@ -8,20 +8,31 @@ The actual rendered columns are set as a property on the row definition" -->
     <mat-cell *matCellDef="let row">{{ row.id }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.name }}</mat-cell>
+    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+    <mat-cell *matCellDef="let row; let i = index;">
+      <app-editable-input [value]="row.name" [editing]="state.editing && state.action_row_index == i">
+      </app-editable-input>
+    </mat-cell>
   </ng-container>
   <ng-container matColumnDef="location">
     <mat-header-cell *matHeaderCellDef>Location</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.location }}</mat-cell>
+    <mat-cell *matCellDef="let row; let i = index;">
+      <app-editable-input [value]="row.location" [editing]="state.editing && state.action_row_index == i" inputType="number">
+      </app-editable-input>
+    </mat-cell>
   </ng-container>
   <ng-container matColumnDef="level">
     <mat-header-cell *matHeaderCellDef>Level</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.level }}</mat-cell>
+    <mat-cell *matCellDef="let row; let i = index;">
+      <app-editable-select [items]="levels" [value]="row.level" [editing]="state.editing && state.action_row_index == i" (valueChange)="levelChange($event, i)"></app-editable-select>
+    </mat-cell>
   </ng-container>
   <ng-container matColumnDef="description">
     <mat-header-cell *matHeaderCellDef>Description</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.description }}</mat-cell>
+    <mat-cell *matCellDef="let row; let i = index;">
+      <app-editable-textarea [value]="row.description" [editing]="state.editing && state.action_row_index == i">
+      </app-editable-textarea>
+    </mat-cell>
   </ng-container>
   <ng-container matColumnDef="created">
     <mat-header-cell *matHeaderCellDef>Created</mat-header-cell>
@@ -29,9 +40,30 @@ The actual rendered columns are set as a property on the row definition" -->
   </ng-container>
   <ng-container matColumnDef="updated">
     <mat-header-cell *matHeaderCellDef>Updated</mat-header-cell>
-    <mat-cell *matCellDef="let row">{{ row.updated | date }}</mat-cell>
+    <mat-cell *matCellDef="let row;">{{ row.updated | date }}</mat-cell>
   </ng-container>
-
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+    <mat-cell *matCellDef="let row; let i = index;">
+      <div *ngIf="state.initial">
+        <button (click)="edit(i)" mat-icon-button>
+          <mat-icon class="size-36" aria-label="Edit">edit</mat-icon>
+        </button>
+        <button (click)="delete(i)" mat-icon-button>
+          <mat-icon class="size-36" aria-label="Delete forever">delete forever</mat-icon>
+        </button>
+      </div>
+      <div *ngIf="(state.editing || state.deleting) && state.action_row_index == i">
+        <button (click)="cancel(i)" mat-icon-button>
+          <mat-icon class="size-36" aria-label="Edit">cancel</mat-icon>
+        </button>
+        <button (click)="save(i)" mat-icon-button>
+          <mat-icon class="size-36" aria-label="Edit">done</mat-icon>
+        </button>
+      </div>
+    </mat-cell>
+  </ng-container>
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
 </mat-table>

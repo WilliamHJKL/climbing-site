@@ -6,5 +6,5 @@ export class RouteListItem {
   created: number;
   name: string;
   description: string;
-  level: RouteLevel;
+  level: string;
 }
