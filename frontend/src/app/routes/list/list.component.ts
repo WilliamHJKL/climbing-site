@@ -40,7 +40,7 @@ export class ListComponent implements OnInit {
   ];
 
   constructor(private routeService: RoutesService) {
-    this.state = this.resetState(true);
+    this.state = this.getInitialState(true);
     this.levels = RouteLevel;
   }
 
@@ -51,7 +51,7 @@ export class ListComponent implements OnInit {
     });
   }
 
-  resetState(initial: boolean = false) {
+  getInitialState(initial: boolean = false) {
     return {
       initial: initial,
       editing: false,
@@ -67,26 +67,32 @@ export class ListComponent implements OnInit {
   }
 
   public edit(index: number) {
-    this.state = this.resetState();
+    this.state = this.getInitialState();
     this.state.editing = true;
     this.state.action_row_index = index;
     console.log(index);
   }
 
   public cancel(index: number) {
-    this.state = this.resetState(true);
+    if (this.state.creating) {
+      // remove the last element from array
+      this.dataSource.data.splice(this.dataSource.data.length - 1, 1);
+      this.refreshTable();
+    }
+
+    this.state = this.getInitialState(true);
     console.log(index);
   }
 
   public save(index: number) {
-    this.state = this.resetState(true);
+    this.state = this.getInitialState(true);
     this.state.saving = true;
     this.state.action_row_index = index;
     console.log(index);
   }
 
   public delete(index: number) {
-    this.state = this.resetState();
+    this.state = this.getInitialState();
     this.state.deleting = true;
     this.state.action_row_index = index;
     console.log(index);
@@ -94,5 +100,18 @@ export class ListComponent implements OnInit {
 
   public levelChange(level: MatSelectChange, index: number) {
     (<RouteListItem> this.dataSource.data[index]).level = level.value;
+  }
+
+  public addRow() {
+    this.dataSource.data.push({});
+    this.state = this.getInitialState();
+    this.state.editing = true;
+    this.state.creating = true;
+    this.state.action_row_index = this.dataSource.data.length - 1;
+    this.refreshTable();
+  }
+
+  private refreshTable() {
+    this.dataSource._updateChangeSubscription();
   }
 }

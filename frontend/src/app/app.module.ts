@@ -5,6 +5,7 @@ import 'rxjs/add/observable/of';
 import { MatTableModule, MatButtonModule, MatIconModule, MatInputModule, MatSelectModule } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 import { FormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppComponent } from './app.component';
 import { ListComponent } from './routes/list/list.component';
@@ -33,6 +34,7 @@ import { EditableSelectComponent } from './reusable/editable-select/editable-sel
     FormsModule,
     BrowserAnimationsModule,
     MatSelectModule,
+    FlexLayoutModule
   ],
   providers: [RoutesService],
   bootstrap: [AppComponent]
