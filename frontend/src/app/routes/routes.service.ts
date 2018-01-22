@@ -1,22 +1,23 @@
+import { appConfig } from '../../../config/app-config';
 import { Injectable } from '@angular/core';
 import { RouteListItem } from './route-list-item';
 import { Observable } from 'rxjs/Observable';
 import { RouteLevel } from './route-level';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class RoutesService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  routes = {
+    findAll: appConfig.apiprefix + 'routes/',
+    findById: (id: number) => (appConfig.apiprefix + `routes/${id}`),
+    save: appConfig.apiprefix + 'routes/',
+    delete: (id: number) => (appConfig.apiprefix + `routes/${id}`),
+  };
 
   public getRoutes(): Observable<RouteListItem[]> {
-    return Observable.of(<RouteListItem[]> [<RouteListItem>{
-      created:  1,
-      updated: 2,
-      description: 'super voie',
-      id: 1,
-      level: '6B',
-      location: '34',
-      name: 'Tout en camon'
-    }]);
+    return this.http.get<RouteListItem[]>(this.routes.findAll);
   }
 }

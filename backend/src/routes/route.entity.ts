@@ -1,7 +1,6 @@
-
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
+@Entity('routes')
 export class Route {
   @PrimaryGeneratedColumn()
   id: number;
@@ -9,35 +8,27 @@ export class Route {
   @Column({name:'name', length: 30 })
   name: string;
 
-  @Column({name:'location', length: 30 })
+  @Column({name:'location', nullable: true, length: 30 })
   location: string;
 
-  @Column({name: 'description', length: 255})
+  @Column({name: 'description', nullable: true, length: 255})
   description: string;
 
   @Column({name: 'level', length: 3})
   level: string;
 
-  @Column()
+  @Column({ type: 'bigint' })
   created: number;
 
-  @Column()
+  @Column({ type: 'bigint' })
   updated: number;
 
-  @Column({name: 'opener', length: 50})
+  @Column({name: 'opener', nullable: true, length: 50})
   opener: string;
 
-  @Column({name: 'openerclub', length: 50})
+  @Column({name: 'openerclub', nullable: true, length: 50})
   opener_club: string;
-}
 
-// id MEDIUMINT NOT NULL AUTO_INCREMENT,
-// location CHAR(30),
-// name CHAR(30) NOT NULL,
-// description CHAR(255),
-// level char(3) NOT NULL,
-// created BIGINT NOT NULL,
-// updated BIGINT NOT NULL,
-// opener CHAR(50),
-// openerclub CHAR(50),
-// PRIMARY KEY (id)
+  @Column({name: 'color', length: 10})
+  color: string;
+}
